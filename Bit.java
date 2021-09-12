@@ -1,33 +1,69 @@
 
+
 public class Bit {
 
     private boolean value;
+    public static final Bit ONE = new Bit(true);
+    public static final Bit ZERO = new Bit(false);
 
-    //Task 3.1
-    public Bit(boolean value){
+    public Bit(boolean value) {
         this.value = value;
     }
 
-    //Task 3.2
-    public int toInt(){ 
-        int ans = 0;
-        if (this.value)
-            ans = 1;
-        else
-            ans = 0;
-
-        return ans;
+    public Bit(int intValue) {
+        if (intValue == 0)
+            value = false;
+        else {
+            if (intValue == 1)
+                value = true;
+            else throw new IllegalArgumentException(value + " is neither 0 nor 1.");
+        }
     }
 
-    //Task 3.3
-    public String toString(){
-        String ans = "";
-        if (this.value)
-            ans = "1";
-        else
-            ans = "0";
-
-        return ans;
+    public String toString() {
+        return "" + toInt();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Bit))
+            return false;
+        else return value == ((Bit) obj).value;
+    }
+
+    public Bit negate() {
+        Bit output;
+        if (value)
+            output = ZERO;
+        else output = ONE;
+        return output;
+    }
+
+    public int toInt() {
+        int output;
+        if (value)
+            output = 1;
+        else
+            output = 0;
+        return output;
+    }
+
+    //=========================== Intro2CS 2021, ASSIGNMENT 4, TASK 1.1 ================================================
+    public static Bit fullAdderSum(Bit bit1, Bit bit2, Bit bit3) {
+        int sumBit = bit1.toInt() + bit2.toInt() + bit3.toInt();
+        if (sumBit % 2 == 0)
+            return ZERO;
+        else
+            return ONE;
+
+    }
+
+    public static Bit fullAdderCarry(Bit bit1, Bit bit2, Bit bit3) {
+        int sumBit = bit1.toInt() + bit2.toInt() + bit3.toInt();
+        if (sumBit > 1)
+            return ONE;
+        else
+            return ZERO;
+    }
+
 }
-
